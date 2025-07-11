@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./bootstrap.min.css">
+</head>
+
+<body class="body">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse fs-4" id="navbarNav">
+                <ul class="navbar-nav ms-auto gap-5">
+                    <li class="nav-item">
+                        <a class="nav-link active" onclick="tableOpen()" aria-current="page" href="#">Food List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Orders</a>
+                    </li>
+                    <li class="nav-item" >
+                        <a class="nav-link" onclick="adfOpen()" href="#">Add Food</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="tableSection">
+        <div class="table  container">
+            <div class="table-responsive">
+                <table class="table table-striped" id="adminTable">
+                    <th>Id</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th >Action</th>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- update food Modal -->
+    <section>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header  d-flex justify-content-around">
+                        <h2 class="modal-title text-cnter ms-auto" id="exampleModalLabel">Update Product</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex justify-content-center">
+                        <div class="form-div   w-100">
+                            <form action="https://restaurentbackend-qste.onrender.com/update" method="post">
+                                <div class="my-2 d-none">
+                                    <label for=""><b>Foodid</b></label><br>
+                                    <input type="text" class="form-control" name="foodId" id="updateId">
+                                </div>
+                                <div class="my-2">
+                                    <label for=""><b>Image Url</b></label><br>
+                                    <input type="text" class="form-control" name="imageUrl" id="updateimageUrl">
+                                </div>
+                                <div class="my-2">
+                                    <label for=""><b>Name </b></label><br>
+                                    <input type="text" class="form-control" name="foodName" id="updatefoodName">
+                                </div>
+                                <div>
+                                    <label for=""><b>Category</b></label>
+                                    <select class="form-select" name="category" id="updateCatrgory"
+                                        aria-label="Default select example">
+                                        <option selected>Open this select menu</option>
+                                        <option value="asian-food">Asian Food</option>
+                                        <option value="sea-food" class="p-2">Sea Food</option>
+                                        <option value="fast-food" class="p-2">Fast Food</option>
+                                        <option value="thai-food" class="p-2">Thai Food</option>
+                                        <option value="veg-food" class="p-2">Veg Food</option>
+                                        <option value="nonveg-food" class="p-2">Non Veg Food</option>
+                                        <option value="chicken-food" class="p-2">Chicken Food</option>
+                                        <option value="indian-food" class="p-2">Indian Food</option>
+                                        <option value="desert" class="p-2">Desert</option>
+                                        <option value="mocktail" class="p-2">Mocktail</option>
+                                    </select>
+                                </div>
+                                <div class="my-2">
+                                    <label for=""><b>Price</b></label><br>
+                                    <input type="number" class="form-control" name="price" id="updateprice">
+                                </div>
+                                <div class="my-2">
+                                    <label for=""><b>Description</b></label><br>
+                                    <textarea class="form-control" name="description" id="updatedescription"></textarea>
+                                </div>
+                                <div class=" col-12 d-flex justify-content-center">
+                                    <input type="submit" onclick="submit()" class="btn submit" name="" id="">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- delete product -->
+    <section>
+        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-top">
+                <div class="modal-content">
+                    <div class="modal-header  d-flex justify-content-around">
+                        <h2 class="modal-title text-cnter ms-auto fs-2" id="exampleModalLabel">Delete Food</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="model-body">
+                        <div class="m-3">
+                            <p class="text-center" id="deleteText"></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center align-items-center">
+                        <div class=" form-div w-100">
+                            <form action="https://restaurentbackend-qste.onrender.com/delete" id="deleteform" method="post">
+                                <div class="my-2 d-none">
+                                    <label for=""><b>Foodid</b></label><br>
+                                    <input type="text" id="delid" class="form-control" name="foodId">
+                                </div>
+                                <div class=" col-12 d-flex justify-content-center model-footer">
+                                    <button type="submit" class="btn submit">Delete</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- add food -->
+    <section class="form-section" id="addForm">
+        <div style="height: 100%; width: 100%; display: flex; justify-content: center; align-items: center;">
+            <div class="form-div col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4">
+                <form action="http://localhost:8080/post" method="post">
+                    <h2 class="text-center">Add Product</h2>
+                    <div class="my-2">
+                        <label for=""><b>Image Url</b></label><br>
+                        <input type="text" class="form-control" name="imageUrl">
+                    </div>
+                    <div class="my-2">
+                        <label for=""><b>Name </b></label><br>
+                        <input type="text" class="form-control" name="foodName">
+                    </div>
+                    <div>
+                        <label for=""><b>Category</b></label>
+                        <select class="form-select" name="category" aria-label="Default select example">
+                            <option selected>Open this select menu</option>
+                            <option value="asian-food">Asian Food</option>
+                            <option value="sea-food" class="p-2">Sea Food</option>
+                            <option value="fast-food" class="p-2">Fast Food</option>
+                            <option value="thai-food" class="p-2">Thai Food</option>
+                            <option value="veg-food" class="p-2">Veg Food</option>
+                            <option value="nonveg-food" class="p-2">Non Veg Food</option>
+                            <option value="chicken-food" class="p-2">Chicken Food</option>
+                            <option value="indian-food" class="p-2">Indian Food</option>
+                            <option value="desert" class="p-2">Desert</option>
+                            <option value="mocktail" class="p-2">Mocktail</option>
+                        </select>
+                    </div>
+                    <div class="my-2">
+                        <label for=""><b>Price</b></label><br>
+                        <input type="number" class="form-control" name="price">
+                    </div>
+                    <div class="my-2">
+                        <label for=""><b>Description</b></label><br>
+                        <textarea name="description" class="form-control"></textarea>
+                    </div>
+                    <div class=" col-12 d-flex justify-content-center">
+                        <input type="submit" class="btn submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </section>
+
+    <script src="./bootstrap.bundle.min.js"></script>
+    <script src="./script.js"></script>
+</body>
+
+</html>
